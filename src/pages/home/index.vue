@@ -1,8 +1,23 @@
 <template>
-  <view class="content">
-    <view>
-      <text class="title">{{ title }}</text>
-    </view>
+  <view class="home-container">
+    <!-- 轮播图 -->
+    <swiper
+      indicator-dots
+      circular
+      autoplay
+      indicator-active-color="#fff"
+      :interval="3000"
+    >
+      <navigator
+        :url="'/pages/course-detail/index?id=' + item.course_id"
+        v-for="item in swipers"
+        :key="item.id"
+      >
+        <swiper-item>
+          <image :src="item.img_url" />
+        </swiper-item>
+      </navigator>
+    </swiper>
   </view>
 </template>
 
@@ -48,91 +63,75 @@ export default Vue.extend({
 });
 </script>
 
-<style>
+<style lang="less" scoped>
 .home-container {
   padding: 20rpx;
   background-color: #fff;
 }
-
 swiper {
   width: 100%;
   height: 342rpx;
+  swiper-item {
+    width: 100%;
+    height: 100%;
+  }
+  image {
+    width: 100%;
+    height: 100%;
+  }
 }
-
-swiper-item {
-  width: 100%;
-  height: 100%;
-}
-
-swiper-item image {
-  width: 100%;
-  height: 100%;
-}
-
 .tips {
   height: 120rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text {
+    font-size: 36rpx;
+    font-weight: 700;
+    color: #212121;
+  }
+  image {
+    width: 48rpx;
+    height: 48rpx;
+  }
 }
-
-.tips .tip {
-  font-size: 36rpx;
-  font-weight: 700;
-  color: #212121;
-}
-
-.tips image {
-  width: 48rpx;
-  height: 48rpx;
-}
-
 .course-container {
   height: 170rpx;
   white-space: nowrap;
+  .course-item {
+    width: 296rpx;
+    height: 168rpx;
+    display: inline-block;
+    margin-right: 32rpx;
+    image {
+      width: 100%;
+      height: 100%;
+    }
+  }
 }
-
-.course-item {
-  width: 296rpx;
-  height: 168rpx;
-  display: inline-block;
-  margin-right: 32rpx;
-}
-
-.course-item image {
-  width: 100%;
-  height: 100%;
-}
-
 .hot-video {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-}
-
-.hot-video .video-item {
-  width: 340prx;
-  display: flex;
-  flex-direction: column;
-}
-
-.video-item image {
-  width: 340rpx;
-  height: 210rpx;
-  border-radius: 12rpx;
-}
-
-.video-item .title {
-  margin-top: 15rpx;
-  color: #262626;
-  font-size: 26rpx;
-}
-
-.video-item .subtitle {
-  margin-top: 15rpx;
-  margin-bottom: 15rpx;
-  color: #959595;
-  font-size: 18rpx;
+  .video-item {
+    width: 340prx;
+    image {
+      width: 340rpx;
+      height: 210rpx;
+      border-radius: 12rpx;
+    }
+    .title {
+      margin-top: 15rpx;
+      color: #262626;
+      font-size: 26rpx;
+    }
+    .subtitle {
+      margin-top: 15rpx;
+      margin-bottom: 15rpx;
+      color: #959595;
+      font-size: 18rpx;
+    }
+  }
 }
 </style>
