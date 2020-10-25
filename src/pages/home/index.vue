@@ -35,6 +35,33 @@
         </navigator>
       </scroll-view>
     </view>
+    <!-- 热门视频 -->
+    <view>
+      <view class="tips">
+        <text>热门视频</text>
+        <image
+          @click="goToCourseDetail(3)"
+          src="/static/images/arrow@2x.png"
+          alt
+        />
+      </view>
+      <view class="hot-video">
+        <navigator
+          :url="'/pages/course-detail/index?id=' + item.course_id"
+          class="video-item"
+          v-for="item in videos"
+          :key="item.id"
+        >
+          <image :src="item.cover_photo_url" alt />
+          <view>
+            <text class="title">{{ item.name }}</text>
+          </view>
+          <view>
+            <text class="subtitle">{{ item.view_count }}人已观看</text>
+          </view>
+        </navigator>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -82,6 +109,8 @@ export default Vue.extend({
         url: "/pages/course/index",
       });
     },
+    // 跳转到课程详情页面
+    goToCourseDetail(id) {},
   },
 });
 </script>
