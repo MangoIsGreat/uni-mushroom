@@ -18,6 +18,23 @@
         </swiper-item>
       </navigator>
     </swiper>
+    <!-- 推荐课程 -->
+    <view>
+      <view class="tips">
+        <text>推荐课程</text>
+        <image @click="goToCoursePage" src="/static/images/arrow@2x.png" alt />
+      </view>
+      <scroll-view scroll-x class="course-container">
+        <navigator
+          :url="'/pages/course-detail/index?id=' + item.relation_id"
+          class="course-item"
+          v-for="item in courses"
+          :key="item.id"
+        >
+          <image :src="item.icon" alt />
+        </navigator>
+      </scroll-view>
+    </view>
   </view>
 </template>
 
@@ -58,6 +75,12 @@ export default Vue.extend({
       if (result.data.status === 0) {
         this.videos = result.data.message;
       }
+    },
+    // 跳转到课程Tab页面
+    goToCoursePage() {
+      uni.switchTab({
+        url: "/pages/course/index",
+      });
     },
   },
 });
