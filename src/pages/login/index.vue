@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { fetch } from "../../utils/fetch"
+import { fetch } from "../../utils/fetch";
 export default Vue.extend({
   data() {
     return {
@@ -73,6 +73,12 @@ export default Vue.extend({
             }
           });
         },
+      });
+    },
+    // 跳转到手机号登录页面
+    phoneLogin() {
+      uni.navigateTo({
+        url: "/pages/phone-login/index",
       });
     },
   },

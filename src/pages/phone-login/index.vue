@@ -1,7 +1,7 @@
 <template>
   <view class="phone-login-container">
     <text class="phone-validate">手机号验证</text>
-    <text class="subtitle">用于即使获取课程最新信息</text>
+    <text class="subtitle">用于即时获取课程最新信息</text>
     <view class="content">
       <input
         class="phone"
@@ -34,6 +34,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { fetch } from "../../utils/fetch";
 export default Vue.extend({
   data() {
     return {
@@ -46,7 +47,7 @@ export default Vue.extend({
     };
   },
   methods: {
-    getVcode() {
+    async getVcode() {
       //  1.非空和正则校验
       if (this.phone.trim().length === 0) {
         uni.showToast({
@@ -89,6 +90,59 @@ export default Vue.extend({
         this.count--;
         this.tipName = `${this.count}`;
       }, 1000);
+
+      //   3.发送请求获取验证码
+      const result = await fetch({
+        url: "user/vcode",
+        data: {
+          phone: this.phone,
+        },
+        tips: "获取验证码",
+        isNeedAuth: false,
+      });
+
+      if (result.data.status === 0) {
+        uni.showToast({
+          title: result.data.vcode + "",
+          icon: "none",
+          duration: 1000,
+        });
+      }
+    },
+    async phoneLogin() {
+      const result = await fetch({
+        url: "user/login",
+        method: "POST",
+        data: {
+          phone: this.phone,
+          vcode: this.vcode,
+        },
+        tips: "手机号登录中...",
+        isNeedAuth: false,
+      });
+
+      if (result.data.status === 0) {
+        //   1、提示
+        uni.showToast({
+          title: result.data.message,
+          icon: "none",
+          duration: 1000,
+        });
+
+        // 2、保存Token到本地
+        uni.setStorageSync("my_token", result.data.token);
+
+        // 3、跳转到首页
+        uni.reLaunch({
+          url: "/pages/home/index",
+        });
+      } else {
+        uni.showToast({
+          title: result.data.message,
+          icon: "none",
+          duration: 1000,
+        });
+      }
     },
   },
 });
