@@ -10,7 +10,12 @@ const fetch = ({
 }) => {
   return new Promise((resolve, reject) => {
     // 对token进行处理
-
+    if (isNeedAuth) {
+      const my_token = uni.getStorageSync("my_token");
+      if (my_token) {
+        header.Authorization = my_token;
+      }
+    }
 
     uni.showLoading({
       title: tips,

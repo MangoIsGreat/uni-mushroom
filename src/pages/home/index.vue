@@ -1,49 +1,138 @@
 <template>
-	<view class="content">
-		<view>
-            <text class="title">{{title}}</text>
-        </view>
-	</view>
+  <view class="content">
+    <view>
+      <text class="title">{{ title }}</text>
+    </view>
+  </view>
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-	export default Vue.extend({
-		data() {
-			return {
-				title: 'Hello'
-			}
-		},
-		onLoad() {
-
-		},
-		methods: {
-
-		}
-	});
+import Vue from "vue";
+import { fetch } from "../../utils/fetch";
+export default Vue.extend({
+  data() {
+    return {
+      swipers: [], // 轮播图
+      courses: [], // 推荐课程
+      videos: [], // 热门视频
+    };
+  },
+  onLoad() {
+    //   获取轮播图数据
+    this.getSwipersData();
+    // 获取推荐课程数据
+    this.getCoursesData();
+    // 获取热门视频数据
+    this.getVideosData();
+  },
+  methods: {
+    async getSwipersData() {
+      const result = await fetch({ url: "home/swipers" });
+      if (result.data.status === 0) {
+        this.swipers = result.data.message;
+      }
+    },
+    async getCoursesData() {
+      const result = await fetch({ url: "home/course" });
+      if (result.data.status === 0) {
+        this.courses = result.data.message;
+      }
+    },
+    async getVideosData() {
+      const result = await fetch({ url: "home/video" });
+      if (result.data.status === 0) {
+        this.videos = result.data.message;
+      }
+    },
+  },
+});
 </script>
 
 <style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
+.home-container {
+  padding: 20rpx;
+  background-color: #fff;
+}
 
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin: 200rpx auto 50rpx auto;
-	}
+swiper {
+  width: 100%;
+  height: 342rpx;
+}
 
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
+swiper-item {
+  width: 100%;
+  height: 100%;
+}
 
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
-	}
+swiper-item image {
+  width: 100%;
+  height: 100%;
+}
+
+.tips {
+  height: 120rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tips .tip {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #212121;
+}
+
+.tips image {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.course-container {
+  height: 170rpx;
+  white-space: nowrap;
+}
+
+.course-item {
+  width: 296rpx;
+  height: 168rpx;
+  display: inline-block;
+  margin-right: 32rpx;
+}
+
+.course-item image {
+  width: 100%;
+  height: 100%;
+}
+
+.hot-video {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hot-video .video-item {
+  width: 340prx;
+  display: flex;
+  flex-direction: column;
+}
+
+.video-item image {
+  width: 340rpx;
+  height: 210rpx;
+  border-radius: 12rpx;
+}
+
+.video-item .title {
+  margin-top: 15rpx;
+  color: #262626;
+  font-size: 26rpx;
+}
+
+.video-item .subtitle {
+  margin-top: 15rpx;
+  margin-bottom: 15rpx;
+  color: #959595;
+  font-size: 18rpx;
+}
 </style>
