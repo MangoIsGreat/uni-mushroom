@@ -11,8 +11,8 @@ const fetch = ({
   return new Promise((resolve, reject) => {
     // 对token进行处理
 
-    
-    uniquni.showLoading({
+
+    uni.showLoading({
       title: tips,
     });
 

@@ -24,6 +24,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { fetch } from "../../utils/fetch"
 export default Vue.extend({
   data() {
     return {
@@ -42,7 +43,35 @@ export default Vue.extend({
       // 调用uni.login
       uni.login({
         success: ({ code }) => {
-          console.log(avatar, nickname, code);
+          // 发请求进行微信授权登录
+          fetch({
+            url: "user/wxlogin",
+            method: "POST",
+            data: {
+              code,
+              nickname,
+              avatar,
+            },
+            tips: "微信登录中...",
+            isNeedAuth: false,
+          }).then((res: any) => {
+            if (res.data.status === 0) {
+              //   1.成功的提示
+              uni.showToast({
+                title: res.data.message,
+                icon: "none",
+                duration: 500,
+              });
+
+              // 2.保存token到本地
+              uni.setStorageSync("my_token", res.data.token);
+
+              //   3.跳转到首页
+              uni.reLaunch({
+                url: "/pages/home/index",
+              });
+            }
+          });
         },
       });
     },
