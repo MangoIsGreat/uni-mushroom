@@ -6,7 +6,7 @@
       color="#ff8d44"
       size="14"
     ></icon>
-    <view class="weui-search-bar__input" @click="search">
+    <view class="weui-search-bar__input" @click="goToSearchPage">
       <text>{{ tips }}</text>
     </view>
   </view>
@@ -26,8 +26,10 @@ export default Vue.extend({
     return {};
   },
   methods: {
-    search() {
-        
+    goToSearchPage() {
+      uni.navigateTo({
+        url: "/pages/search/index",
+      });
     },
   },
 });
