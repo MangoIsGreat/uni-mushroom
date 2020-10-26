@@ -3,7 +3,7 @@ import { BASEURL } from "./url";
 const fetch = ({
   url,
   method = "GET",
-  data,
+  data = {},
   header = {},
   tips = "正在加载中...",
   isNeedAuth = true,

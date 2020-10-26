@@ -9,13 +9,13 @@
         >
       </view>
       <view class="circle">
-        <!-- <circle
+        <circle
           ref="circleRef"
           :canvasId="item.sid"
           :progress="item.study_progress"
           :width="55"
           :height="55"
-        ></circle> -->
+        ></circle>
       </view>
     </view>
     <view v-if="isEmpty">
@@ -27,12 +27,16 @@
 <script lang="ts">
 import Vue from "vue";
 import { fetch } from "../../utils/fetch";
+import Circle from "../../components/Circle.vue";
 export default Vue.extend({
   data() {
     return {
       studyProgress: [], // 学习进度
       isEmpty: false, // 是否为空
     };
+  },
+  components: {
+    Circle,
   },
   onShow() {
     // 获取学习进度数据
