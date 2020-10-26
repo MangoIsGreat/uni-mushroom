@@ -109,8 +109,12 @@ export default Vue.extend({
         url: "/pages/course/index",
       });
     },
-    // 跳转到课程详情页面
-    goToCourseDetail(id) {},
+    // 跳转到课程详情页面(id=3是创意手绘班)
+    goToCourseDetail(id) {
+      uni.navigateTo({
+        url: `/pages/course-detail/index?id=${id}`,
+      });
+    },
   },
 });
 </script>

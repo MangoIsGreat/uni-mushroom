@@ -19,6 +19,9 @@
 			"path": "pages/course/index"
 		},
 		{
+			"path": "pages/course-detail/index"
+		},
+		{
 			"path": "pages/study/index"
 		},
 		{
