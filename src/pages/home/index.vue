@@ -1,5 +1,7 @@
 <template>
   <view class="home-container">
+    <!-- 搜索框 -->
+    <search-bar tips="请输入课程名称" />
     <!-- 轮播图 -->
     <swiper
       indicator-dots
@@ -68,6 +70,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { fetch } from "../../utils/fetch";
+import SearchBar from "../../components/SearchBar.vue";
 export default Vue.extend({
   data() {
     return {
@@ -75,6 +78,9 @@ export default Vue.extend({
       courses: [], // 推荐课程
       videos: [], // 热门视频
     };
+  },
+  components: {
+    SearchBar,
   },
   onLoad() {
     //   获取轮播图数据
