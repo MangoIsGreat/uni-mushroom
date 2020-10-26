@@ -81,7 +81,13 @@ export default Vue.extend({
         this.myForegroundColor = "#B4D66E";
       }
 
+      //   开始画另外一段之前,记得调用beginPath 代表开启一段新的路径
+      ctx.beginPath();
+
       ctx.strokeStyle = this.myForegroundColor;
+
+      //   设置线段链接样式
+      ctx.lineJoin = "round";
 
       //   绘制进度圆形
       const eAngle = (this.progress / 100) * 2 * Math.PI - 0.5 * Math.PI;
@@ -94,6 +100,25 @@ export default Vue.extend({
         false
       );
       ctx.stroke();
+
+      //   4.绘制数字
+      ctx.beginPath();
+      ctx.strokeStyle = this.myForegroundColor;
+      const font_size = 12;
+      ctx.font = font_size + "px Helvetica";
+      if (this.progress >= 99) {
+        ctx.fillText(
+          this.progress + "%",
+          this.width / 2 - 13,
+          this.height / 2 + 6
+        );
+      } else {
+        ctx.fillText(
+          this.progress + "%",
+          this.width / 2 - 10,
+          this.height / 2 + 6
+        );
+      }
 
       //   这里才能完成绘制图形的功能
       ctx.draw();
