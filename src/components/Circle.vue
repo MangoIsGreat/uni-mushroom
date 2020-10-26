@@ -38,6 +38,14 @@ export default Vue.extend({
       default: "#b4d66e",
     },
   },
+  data() {
+    return {
+      myForegroundColor: "",
+    };
+  },
+  created() {
+    this.myForegroundColor = this.foregroundColor;
+  },
   mounted() {
     this.drawCircle();
   },
@@ -62,6 +70,29 @@ export default Vue.extend({
         false
       );
 
+      ctx.stroke();
+
+      //   3.绘制进度的圆环
+      if (this.progress <= 30) {
+        this.myForegroundColor = "#f00";
+      } else if (this.progress > 30 && this.progress <= 50) {
+        this.myForegroundColor = "#FF783B";
+      } else {
+        this.myForegroundColor = "#B4D66E";
+      }
+
+      ctx.strokeStyle = this.myForegroundColor;
+
+      //   绘制进度圆形
+      const eAngle = (this.progress / 100) * 2 * Math.PI - 0.5 * Math.PI;
+      ctx.arc(
+        this.width / 2,
+        this.height / 2,
+        this.width / 2 - this.lineWidth,
+        -0.5 * Math.PI,
+        eAngle,
+        false
+      );
       ctx.stroke();
 
       //   这里才能完成绘制图形的功能
